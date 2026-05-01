@@ -1,60 +1,85 @@
-# 杀戮尖塔存档编辑器
+# Slay the Spire Save Editor / 杀戮尖塔存档编辑器
 
-一个基于 Python/tkinter 的《杀戮尖塔（Slay the Spire）》存档编辑工具，支持修改金币、HP、遗物、药水、牌组等内容，中文界面，无需安装 Python 环境，下载即用。
+A save file editor for Slay the Spire with full Chinese/English UI support. No Python required — just download and run.
 
-## 下载
+界面支持中英文切换 / UI supports Chinese ↔ English toggle.
 
-前往 [Releases](../../releases/latest) 页面下载 `STS存档编辑器.exe`，无需安装，双击运行。
+## Download / 下载
 
-## 功能
+Go to [Releases](../../releases/latest) and download `STS存档编辑器.exe`. No installation needed — double-click to run.
 
-| 标签页 | 可修改内容 |
-|--------|-----------|
-| 基本数值 | 金币、当前/最大 HP、手牌上限、药水槽数、净化费用、三把钥匙、灼热模式及等级 |
-| 遗物管理 | 添加/移除遗物，支持中文搜索，显示遗物描述 |
-| 药水管理 | 为任意药水槽设置/清空药水，支持中文搜索 |
-| 牌组管理 | 添加/移除卡牌，按职业或类型（攻击/技能/异能）筛选，调整升级次数 |
+前往 [Releases](../../releases/latest) 下载 `STS存档编辑器.exe`，无需安装，双击即用。
 
-## 截图
+---
 
-### 基本数值
-![基本数值](screenshots/tab_stats.png)
+## Features / 功能
 
-### 遗物管理
-![遗物管理](screenshots/tab_relics.png)
+| Tab | What you can edit |
+|-----|-------------------|
+| Stats | Gold, current/max HP, hand size, potion slots, purge cost, all three keys, ascension mode & level |
+| Relics | Add / remove relics, searchable with descriptions |
+| Potions | Set or clear any potion slot, searchable with descriptions |
+| Cards | Add / remove cards, filter by class and type (Attack / Skill / Power), adjust upgrade count |
 
-### 药水管理
-![药水管理](screenshots/tab_potions.png)
+All relics, potions, and cards show both Chinese and English names. Descriptions switch language with the UI toggle.
 
-### 牌组管理
-![牌组管理](screenshots/tab_cards.png)
+---
 
-## 使用方法
+## Screenshots / 截图
 
-1. 启动程序，首次运行会自动检测游戏安装目录（Steam）
-   - 若未能自动检测，会弹出对话框手动选择含 `desktop-1.0.jar` 的游戏目录
-2. 从顶部下拉框选择存档文件（`.autosave`）
-3. 在各标签页中进行修改
-4. 点击对应的"保存"按钮写入存档
-   - 每次保存前会自动备份原文件（`*.bak_日期时间`）
-   - 保存结果显示在底部状态栏
+### Stats / 基本数值
+![Stats](screenshots/tab_stats.png)
 
-> **注意**：请在游戏退出后再编辑存档，否则游戏重新保存时会覆盖你的修改。
+### Relics / 遗物管理
+![Relics](screenshots/tab_relics.png)
 
-## 首次运行较慢？
+### Potions / 药水管理
+![Potions](screenshots/tab_potions.png)
 
-第一次启动会解析游戏 JAR 包（约 10 秒），之后会缓存数据，后续启动几乎瞬间完成。
+### Cards / 牌组管理
+![Cards](screenshots/tab_cards.png)
 
-## 技术说明
+---
 
-- 存档格式：Base64 → XOR 解密（密钥 `"key"`）→ JSON
-- 遗物/卡牌/药水 ID 从 `desktop-1.0.jar` 字节码中提取
-- 中文名称来自游戏自带的 `localization/zhs/` 本地化文件
+## How to Use / 使用方法
 
-## 环境要求（仅源码运行时）
+1. **Launch** — on first run the app auto-detects your Steam installation. If not found, a dialog lets you browse to the folder containing `desktop-1.0.jar`.
+2. **Select save file** — pick a `.autosave` file from the dropdown at the top.
+3. **Edit** — make changes in any tab.
+4. **Save** — click the Save button in that tab. The original file is backed up automatically as `*.bak_YYYYMMDD_HHMMSS`.
+5. **Language** — click the **EN / ZH** button in the toolbar to toggle the interface language.
 
-- Python 3.10+
-- 无第三方依赖（仅标准库）
+> **Important:** Quit the game before editing saves. If the game is running it will overwrite your changes when it saves.
+
+---
+
+1. **启动** — 首次运行自动检测 Steam 安装路径。未检测到时弹出对话框手动选择含 `desktop-1.0.jar` 的游戏目录。
+2. **选择存档** — 在顶部下拉框选择 `.autosave` 文件。
+3. **修改** — 在各标签页中进行编辑。
+4. **保存** — 点击对应标签页的保存按钮。原文件自动备份为 `*.bak_日期时间`。
+5. **语言切换** — 点击工具栏 **EN / ZH** 按钮切换界面语言。
+
+> **注意**：请在游戏退出后再编辑存档，否则游戏重新保存时会覆盖修改。
+
+---
+
+## First launch is slow?
+
+The first run parses game data from `desktop-1.0.jar` (~10 seconds). Results are cached; all subsequent launches are near-instant.
+
+首次启动会解析游戏 JAR 包（约 10 秒），之后从缓存加载，几乎瞬间完成。
+
+---
+
+## Technical notes
+
+- Save format: Base64 → XOR decrypt (key `"key"`) → JSON
+- Relic / card / potion IDs extracted from Java class bytecode constant pools
+- Localisation sourced from `localization/eng/` and `localization/zhs/` inside the game JAR
+
+## Running from source
+
+Python 3.10+, no third-party dependencies.
 
 ```bash
 python sts_save_editor.py
