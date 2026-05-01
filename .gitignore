@@ -1,0 +1,15 @@
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Runtime generated (user-specific)
+sts_editor_config.json
+sts_data_cache.json
+
+# Claude internal
+.claude/
